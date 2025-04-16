@@ -9,6 +9,6 @@ services:
             - ./logs:/app/logs
             - ./maps:/app/maps
         environment:
-            - RPP_DISCORD_CLIENT_ID=111....1111
-            - RPP_DISCORD_TOKEN=token
+            - RPP_DISCORD_CLIENT_ID
+            - RPP_DISCORD_TOKEN
         container_name: rpp
