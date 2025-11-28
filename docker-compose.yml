@@ -1,14 +1,31 @@
 version: '3.3'
+
 services:
-    app:
-        build:
-          context: .
-        volumes:
-            - ./credentials:/app/credentials
-            - ./instances:/app/instances
-            - ./logs:/app/logs
-            - ./maps:/app/maps
-        environment:
-            - RPP_DISCORD_CLIENT_ID
-            - RPP_DISCORD_TOKEN
-        container_name: rpp
+  app:
+    build:
+      context: .
+    container_name: rpp
+    restart: always
+
+    # ❗ Forceer goede DNS — hierdoor stopt je Discord bot met de EAI_AGAIN fout
+    dns:
+      - 1.1.1.1
+      - 8.8.8.8
+
+    # Normaal Docker netwerk gebruiken (bridge)
+    networks:
+      - default
+
+    volumes:
+      - ./credentials:/app/credentials
+      - ./instances:/app/instances
+      - ./logs:/app/logs
+      - ./maps:/app/maps
+
+    environment:
+      - RPP_DISCORD_CLIENT_ID
+      - RPP_DISCORD_TOKEN
+
+networks:
+  default:
+    driver: bridge
